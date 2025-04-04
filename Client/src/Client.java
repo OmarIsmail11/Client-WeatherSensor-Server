@@ -18,12 +18,13 @@ public class Client {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
 
-                try (BufferedReader in = new BufferedReader(
-                        new InputStreamReader(conn.getInputStream()))) {
+                try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                     String line;
                     while ((line = in.readLine()) != null) {
                         System.out.println(line);
                     }
+
+                    System.out.println("----------------------------------------------------------\n");
                 }
 
                 conn.disconnect();
