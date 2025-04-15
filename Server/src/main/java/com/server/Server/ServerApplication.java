@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
 import java.net.*;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,7 +19,7 @@ public class ServerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServerApplication.class, args);
-		new Thread(ServerApplication::startTcpServer).start();
+		new Thread(() -> startTcpServer()).start();
 	}
 
 	@RestController
@@ -30,11 +31,11 @@ public class ServerApplication {
 			if (weather == null) {
 				return Map.of("message", "No data available");
 			}
-			return Map.of(
-					"city", city,
-					"temp", weather.temperature,
-					"humidity", weather.humidity
-			);
+			Map<String, String> data = new LinkedHashMap<>();
+			data.put("city", city);
+			data.put("temperature", weather.temperature);
+			data.put("humidity", weather.humidity);
+			return data;
 		}
 	}
 

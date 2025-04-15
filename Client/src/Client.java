@@ -7,6 +7,8 @@ public class Client {
         String serverUrl = "http://localhost:8080/weather/";
         Scanner scanner = new Scanner(System.in);
 
+        HttpURLConnection conn = null;
+
         try {
             while (true) {
                 System.out.print("Enter city name (or 'quit' to exit): ");
@@ -15,7 +17,7 @@ public class Client {
                 if (city.equalsIgnoreCase("quit")) break;
 
                 URL url = new URL(serverUrl + city);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
 
                 try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
@@ -26,13 +28,13 @@ public class Client {
 
                     System.out.println("----------------------------------------------------------\n");
                 }
-
-                conn.disconnect();
             }
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
-        } finally {
-            scanner.close();
         }
+
+        conn.disconnect();
+        scanner.close();
+
     }
 }
