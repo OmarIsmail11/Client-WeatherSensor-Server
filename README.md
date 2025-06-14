@@ -61,6 +61,11 @@ Implemented a GET endpoint to do the following:
 
 ● Spring Boot automatically handles multiple HTTP requests in parallel. However, since multiple sensors update shared data concurrently, threads are used for reading and writing weather data.
 
+
+## Collaborators
+- Omar Ahmed Asker
+- Omar Ahmed Reda
+  
 ## Demo
 
 
